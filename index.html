@@ -3,684 +3,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>KoopEnKook — Koop slim, kook lekker</title>
+<title>KoopEnKook — Slim kopen, lekker koken</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --g1: #2d5a1b;
-  --g2: #3d7a24;
-  --g3: #52a030;
-  --g-light: #eef7e8;
-  --g-mid: #c8e8b0;
-  --a1: #7a4a0a;
-  --a-light: #fef3e2;
-  --a-mid: #f4c06a;
-  --text: #1c1c1c;
-  --muted: #6b6b6b;
-  --border: #e2ddd4;
-  --bg: #f9f6f0;
-  --white: #ffffff;
-  --r: 14px;
-  --r-lg: 20px;
+  --g1: #2d5a1b; --g2: #3d7a24; --g3: #52a030;
+  --g-light: #eef7e8; --g-mid: #c8e8b0;
+  --a-light: #fef3e2; --a1: #7a4a0a;
+  --text: #1c1c1c; --muted: #6b6b6b; --border: #e2ddd4;
+  --bg: #f9f6f0; --white: #ffffff; --r: 14px; --r-lg: 20px;
 }
-
+body.dark {
+  --bg: #1a1a1a;
+  --white: #242424;
+  --text: #f0f0f0;
+  --muted: #a0a0a0;
+  --border: #333333;
+  --g-light: #1e3012;
+  --g-mid: #2a4a1a;
+  --a-light: #2a1f0a;
+}
 html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+ 
 /* NAV */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(249,246,240,0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 1.5rem;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  font-family: 'Fraunces', serif;
-  font-size: 1.4rem;
-  color: var(--g1);
-  letter-spacing: -0.3px;
-}
-
-.logo span { color: var(--g3); font-style: italic; }
-
-.nav-cta {
-  background: var(--g1);
-  color: white;
-  border: none;
-  border-radius: 99px;
-  padding: 8px 18px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-}
-
+nav { position: sticky; top: 0; z-index: 100; background: rgba(249,246,240,0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s; }
+body.dark nav { background: rgba(26,26,26,0.94); }
+ 
+.dark-toggle { display: flex; align-items: center; gap: 8px; margin-right: 12px; }
+.dark-toggle span { font-size: 0.8rem; color: var(--muted); }
+.toggle-switch { position: relative; width: 40px; height: 22px; cursor: pointer; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-track { position: absolute; inset: 0; background: var(--border); border-radius: 99px; transition: background 0.2s; }
+.toggle-switch input:checked + .toggle-track { background: #3d7a24; }
+.toggle-thumb { position: absolute; width: 16px; height: 16px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+.toggle-switch input:checked ~ .toggle-thumb { transform: translateX(18px); }
+.nav-right { display: flex; align-items: center; gap: 4px; }
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-bar { width: 5px; height: 28px; background: var(--g3); border-radius: 3px; }
+.logo-text { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; }
+.logo-text .k { color: var(--g1); }
+.logo-text .en { color: var(--g3); font-style: italic; }
+.nav-cta { background: var(--g1); color: white; border: none; border-radius: 99px; padding: 8px 18px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-decoration: none; }
+ 
 /* HERO */
-.hero {
-  padding: 5rem 1.5rem 3rem;
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--g-light);
-  color: var(--g1);
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 5px 14px;
-  border-radius: 99px;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.02em;
-}
-
-.hero h1 {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(2.4rem, 7vw, 3.8rem);
-  line-height: 1.1;
-  color: var(--text);
-  margin-bottom: 1rem;
-  letter-spacing: -1px;
-}
-
+.hero { padding: 2.5rem 1.5rem 1.5rem; text-align: center; max-width: 680px; margin: 0 auto; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--g-light); color: var(--g1); font-size: 0.8rem; font-weight: 600; padding: 5px 14px; border-radius: 99px; margin-bottom: 1rem; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.1; letter-spacing: -1px; margin-bottom: 0.75rem; }
 .hero h1 em { color: var(--g2); font-style: italic; }
-
-.hero p {
-  font-size: 1.05rem;
-  color: var(--muted);
-  line-height: 1.65;
-  margin-bottom: 2rem;
-}
-
-.hero-btn {
-  display: inline-block;
-  background: var(--g1);
-  color: white;
-  padding: 14px 32px;
-  border-radius: 99px;
-  font-weight: 600;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.1s;
-  border: none;
-  cursor: pointer;
-}
-
-.hero-btn:hover { background: var(--g2); }
-.hero-btn:active { transform: scale(0.98); }
-
-.hero-img {
-  margin: 3rem auto 0;
-  max-width: 460px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 1.5rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-}
-
-.hero-food-card {
-  background: var(--g-light);
-  border-radius: 10px;
-  padding: 1rem 0.5rem;
-  text-align: center;
-  font-size: 1.8rem;
-}
-
-.hero-food-card span {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--g1);
-  font-weight: 600;
-  margin-top: 4px;
-}
-
-/* HOW IT WORKS */
-.section {
-  padding: 4rem 1.5rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--g2);
-  margin-bottom: 0.5rem;
-}
-
-.section h2 {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
-  line-height: 1.2;
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.5px;
-}
-
-.section p.sub {
-  color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.65;
-  margin-bottom: 2.5rem;
-}
-
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-.step-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 1.5rem;
-}
-
-.step-num {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--g-light);
-  color: var(--g1);
-  font-weight: 700;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.75rem;
-}
-
-.step-card h3 {
-  font-size: 0.98rem;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-}
-
-.step-card p {
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-/* DIVIDER */
-.divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 0;
-}
-
+.hero p { color: var(--muted); font-size: 1rem; line-height: 1.6; margin-bottom: 1.25rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+ 
+/* STATS */
+.stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.stat { text-align: center; }
+.stat-num { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700; color: var(--g1); display: block; }
+.stat-label { font-size: 0.78rem; color: var(--muted); }
+ 
+/* VALUE PROPS */
+.value-props { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.vp { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); }
+.vp-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--g3); flex-shrink: 0; }
+ 
 /* CALCULATOR */
-#calculator {
-  padding: 4rem 1.5rem;
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-#calculator .section-label { text-align: center; }
-#calculator h2 { text-align: center; }
-
-.calc-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 2rem;
-  margin-top: 2rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
+#calculator { max-width: 680px; margin: 0 auto; padding: 0 1.5rem 2rem; }
+.calc-header { text-align: center; margin-bottom: 1.5rem; }
+.calc-header h2 { font-family: 'Fraunces', serif; font-size: 1.8rem; letter-spacing: -0.5px; margin-bottom: 0.25rem; }
+.calc-header p { color: var(--muted); font-size: 0.9rem; }
+ 
+.calc-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.75rem; }
+ 
+.section-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; display: block; }
+ 
+/* LIVE FEEDBACK */
+.live-feedback { background: var(--g-light); border-radius: 10px; padding: 10px 14px; margin-bottom: 1.25rem; font-size: 0.88rem; color: var(--g1); font-weight: 600; text-align: center; min-height: 38px; display: flex; align-items: center; justify-content: center; }
+ 
+/* GRID */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
 .form-group { display: flex; flex-direction: column; gap: 5px; }
-
-.form-group label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.form-group input,
-.form-group select {
-  padding: 0.7rem 0.9rem;
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.95rem;
-  background: var(--bg);
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.form-group input:focus,
-.form-group select:focus { border-color: var(--g2); }
-
-.select-wrapper { position: relative; }
-
-.select-wrapper::after {
-  content: '▾';
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted);
-  pointer-events: none;
-  font-size: 0.8rem;
-}
-
-.tags-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  display: block;
-  margin-bottom: 8px;
-  margin-top: 1rem;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-bottom: 1rem;
-}
-
-.tag {
-  padding: 7px 14px;
-  border-radius: 99px;
-  border: 1.5px solid var(--border);
-  font-size: 0.85rem;
-  cursor: pointer;
-  background: var(--bg);
-  color: var(--muted);
-  transition: all 0.15s;
-  user-select: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-.tag:hover { border-color: var(--g2); color: var(--g1); }
-
-.tag.active {
-  background: var(--g-light);
-  border-color: var(--g2);
-  color: var(--g1);
-  font-weight: 600;
-}
-
-.btn-generate {
-  width: 100%;
-  padding: 1rem;
-  background: var(--g1);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 1.25rem;
-  transition: background 0.2s, transform 0.1s;
-}
-
+.form-group select, .form-group input { padding: 0.65rem 0.9rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.93rem; background: var(--bg); color: var(--text); outline: none; transition: border-color 0.2s; -webkit-appearance: none; appearance: none; }
+.form-group select:focus, .form-group input:focus { border-color: var(--g2); }
+.select-wrap { position: relative; }
+.select-wrap::after { content: '▾'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 0.8rem; }
+ 
+/* MEAL CARDS */
+.meal-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.25rem; }
+.meal-card { border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.15s; background: var(--bg); }
+.meal-card:hover { border-color: var(--g2); }
+.meal-card.active { background: var(--g-light); border-color: var(--g2); }
+.meal-card .mc-icon { font-size: 1.4rem; display: block; margin-bottom: 3px; }
+.meal-card .mc-label { font-size: 0.8rem; font-weight: 500; color: var(--text); }
+.meal-card.active .mc-label { color: var(--g1); }
+ 
+/* DIET PILLS */
+.diet-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+.pill { padding: 5px 12px; border-radius: 99px; border: 1.5px solid var(--border); font-size: 0.82rem; cursor: pointer; background: var(--bg); color: var(--muted); transition: all 0.15s; user-select: none; font-family: 'Plus Jakarta Sans', sans-serif; }
+.pill:hover { border-color: var(--g2); color: var(--g1); }
+.pill.active { background: var(--g-light); border-color: var(--g2); color: var(--g1); font-weight: 600; }
+ 
+/* INGREDIENT TAGS */
+.ing-field-wrap { border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); padding: 8px 10px; min-height: 46px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; cursor: text; transition: border-color 0.2s; margin-bottom: 8px; }
+.ing-field-wrap:focus-within { border-color: var(--g2); }
+.ing-tag { background: var(--g-light); color: var(--g1); font-size: 0.82rem; font-weight: 600; padding: 3px 8px; border-radius: 99px; display: flex; align-items: center; gap: 4px; }
+.ing-tag-remove { cursor: pointer; font-size: 0.75rem; opacity: 0.7; }
+.ing-tag-remove:hover { opacity: 1; }
+.ing-input { border: none; background: transparent; outline: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; color: var(--text); min-width: 120px; flex: 1; }
+.ing-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+.ing-sug { padding: 4px 10px; border-radius: 99px; border: 1px solid var(--border); font-size: 0.78rem; cursor: pointer; color: var(--muted); background: var(--white); transition: all 0.12s; }
+.ing-sug:hover { border-color: var(--g3); color: var(--g1); background: var(--g-light); }
+ 
+/* BUTTON */
+.btn-generate { width: 100%; padding: 1rem; background: var(--g1); color: white; border: none; border-radius: 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 0.5rem; transition: background 0.2s, transform 0.1s; }
 .btn-generate:hover { background: var(--g2); }
 .btn-generate:active { transform: scale(0.99); }
 .btn-generate:disabled { background: #bbb; cursor: not-allowed; }
-
-/* RESULT */
-.result-wrap {
-  display: none;
-  max-width: 680px;
-  margin: 0 auto 2rem;
-  padding: 0 1.5rem;
-}
-
-.result-wrap.visible { display: block; }
-
-.result-box {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-}
-
-.result-top {
-  background: var(--g1);
-  padding: 1.5rem 2rem;
-  color: white;
-}
-
-.result-top h2 {
-  font-family: 'Fraunces', serif;
-  font-size: 1.7rem;
-  font-weight: 400;
-  font-style: italic;
-  margin-bottom: 0.4rem;
-}
-
-.result-top p { font-size: 0.9rem; opacity: 0.85; }
-
-.result-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 0.75rem;
-}
-
-.pill {
-  background: rgba(255,255,255,0.2);
-  color: white;
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 99px;
-}
-
-.result-body { padding: 1.5rem 2rem; }
-
-.res-section-title {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin-bottom: 0.75rem;
-  margin-top: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.res-section-title:first-child { margin-top: 0; }
-
-.ingredients-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 7px;
-}
-
-.ing-item {
-  background: var(--bg);
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-
-.ing-name { font-size: 0.9rem; font-weight: 500; }
-.ing-detail { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-.ing-price { font-size: 0.78rem; color: var(--g1); font-weight: 600; }
-
-.steps-ol {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.steps-ol li {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  font-size: 0.93rem;
-  line-height: 1.6;
-  color: var(--text);
-}
-
-.sn {
-  background: var(--g1);
-  color: white;
-  min-width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.72rem;
-  font-weight: 700;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.shopping-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.shopping-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
-  padding: 8px 12px;
-  background: var(--bg);
-  border-radius: 8px;
-}
-
-.shop-price { font-weight: 600; color: var(--g1); }
-
-.tip-box {
-  background: var(--a-light);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  margin-top: 1.25rem;
-}
-
-.tip-box strong {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--a1);
-}
-
-.tip-box p { margin-top: 4px; font-size: 0.9rem; color: #5a3c0a; line-height: 1.5; }
-
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--g-light);
-  border-radius: 10px;
-  padding: 10px 14px;
-  margin-top: 8px;
-  font-weight: 600;
-  color: var(--g1);
-  font-size: 0.95rem;
-}
-
-.btn-again {
-  width: 100%;
-  padding: 0.85rem;
-  background: transparent;
-  color: var(--g1);
-  border: 1.5px solid var(--g2);
-  border-radius: 12px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 1.25rem;
-  transition: all 0.15s;
-}
-
-.btn-again:hover { background: var(--g-light); }
-
-.loading {
-  text-align: center;
-  padding: 2.5rem;
-  color: var(--muted);
-}
-
-.spinner {
-  width: 36px;
-  height: 36px;
-  border: 3px solid var(--g-mid);
-  border-top-color: var(--g2);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 1rem;
-}
-
+ 
+/* LOADING */
+.loading-state { text-align: center; padding: 2.5rem 1rem; }
+.spinner { width: 40px; height: 40px; border: 3px solid var(--g-mid); border-top-color: var(--g2); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 2.5rem 1.5rem;
-  color: var(--muted);
-  font-size: 0.82rem;
-  border-top: 1px solid var(--border);
-  line-height: 1.7;
-}
-
-/* MOBILE */
+.loading-state p { color: var(--muted); font-size: 0.95rem; }
+ 
+/* RESULT */
+.result-wrap { max-width: 680px; margin: 0 auto 2rem; padding: 0 1.5rem; display: none; }
+.result-wrap.visible { display: block; }
+.result-top { background: var(--g1); border-radius: var(--r-lg) var(--r-lg) 0 0; padding: 1.5rem 1.75rem; color: white; }
+.result-top h2 { font-family: 'Fraunces', serif; font-size: 1.6rem; font-style: italic; font-weight: 400; margin-bottom: 0.4rem; }
+.result-top p { font-size: 0.88rem; opacity: 0.85; }
+.result-quick-stats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.75rem; }
+.rqs { background: rgba(255,255,255,0.18); color: white; font-size: 0.78rem; font-weight: 600; padding: 4px 10px; border-radius: 99px; }
+ 
+.result-body { background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--r-lg) var(--r-lg); padding: 1.5rem 1.75rem; }
+ 
+/* TWO COLUMN RESULT */
+.result-cols { display: grid; grid-template-columns: 1fr 280px; gap: 1.5rem; }
+ 
+.res-sec-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.6rem; margin-top: 1.25rem; display: block; }
+.res-sec-title:first-child { margin-top: 0; }
+ 
+.ing-grid { display: flex; flex-direction: column; gap: 5px; }
+.ing-item { background: var(--bg); border-radius: 8px; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; }
+.ing-left { display: flex; flex-direction: column; }
+.ing-name { font-size: 0.88rem; font-weight: 500; }
+.ing-amount { font-size: 0.75rem; color: var(--muted); }
+.ing-price { font-size: 0.82rem; font-weight: 600; color: var(--g1); }
+.ing-item.already-have { border-left: 3px solid var(--g3); }
+.already-badge { font-size: 0.68rem; color: var(--g2); font-weight: 600; background: var(--g-light); padding: 1px 6px; border-radius: 99px; }
+ 
+.steps-ol { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.steps-ol li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; line-height: 1.6; }
+.sn { background: var(--g1); color: white; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+ 
+/* NUTRITION */
+.nutrition-box { background: var(--bg); border-radius: 12px; padding: 1rem; height: fit-content; }
+.nutrition-box h4 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.75rem; }
+.nut-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.nut-row:last-child { border-bottom: none; }
+.nut-label { color: var(--muted); }
+.nut-val { font-weight: 600; color: var(--text); }
+.nut-bar-wrap { margin-top: 8px; }
+.nut-bar { height: 4px; background: var(--border); border-radius: 99px; margin-top: 4px; overflow: hidden; }
+.nut-bar-fill { height: 100%; background: var(--g2); border-radius: 99px; }
+ 
+.total-row { display: flex; justify-content: space-between; background: var(--g-light); border-radius: 10px; padding: 10px 14px; margin-top: 8px; font-weight: 600; color: var(--g1); font-size: 0.95rem; }
+.tip-box { background: var(--a-light); border-radius: 10px; padding: 1rem; margin-top: 1.25rem; }
+.tip-box strong { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--a1); }
+.tip-box p { margin-top: 4px; font-size: 0.88rem; color: #5a3c0a; line-height: 1.5; }
+ 
+.btn-again { width: 100%; padding: 0.85rem; background: transparent; color: var(--g1); border: 1.5px solid var(--g2); border-radius: 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.15s; }
+.btn-again:hover { background: var(--g-light); }
+ 
+/* EXAMPLES */
+.examples { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem; }
+.examples h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; text-align: center; margin-bottom: 1.25rem; }
+.ex-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.ex-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1rem; }
+.ex-budget { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--g2); margin-bottom: 4px; }
+.ex-dish { font-family: 'Fraunces', serif; font-size: 1rem; font-style: italic; color: var(--text); margin-bottom: 4px; }
+.ex-detail { font-size: 0.78rem; color: var(--muted); }
+ 
+footer { text-align: center; padding: 2rem 1.5rem; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
+ 
 @media (max-width: 580px) {
   .form-row { grid-template-columns: 1fr; }
-  .ingredients-grid { grid-template-columns: 1fr; }
-  .hero { padding: 3rem 1.25rem 2rem; }
-  .result-body { padding: 1.25rem; }
-  .result-top { padding: 1.25rem; }
-  .calc-card { padding: 1.25rem; }
-  .hero-img { display: none; }
+  .result-cols { grid-template-columns: 1fr; }
+  .meal-cards { grid-template-columns: repeat(2, 1fr); }
+  .stats { gap: 1.2rem; }
 }
 </style>
 </head>
 <body>
-
+ 
 <nav>
-  <div class="logo">Koop<span>EnKook</span></div>
-  <a href="#calculator" class="nav-cta">Probeer gratis →</a>
+  <div class="logo">
+    <div class="logo-bar"></div>
+    <div class="logo-text"><span class="k">Koop</span><span class="en">en</span><span class="k">Kook</span></div>
+  </div>
+  <div class="nav-right">
+    <div class="dark-toggle">
+      <span>🌙</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="dark-toggle" onchange="toggleDark(this)">
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>
+    </div>
+    <a href="#calculator" class="nav-cta">Maak recept →</a>
+  </div>
 </nav>
-
-<!-- HERO -->
+ 
 <section class="hero">
   <div class="hero-badge">✨ Gratis · Geen account nodig</div>
-  <h1>Wat eet jij <em>vanavond?</em></h1>
-  <p>Vul je budget en wensen in — KoopEnKook bedenkt een heerlijk recept met een eerlijke boodschappenlijst en realistische prijzen.</p>
-  <a href="#calculator" class="hero-btn">Maak mijn recept</a>
-
-  <div class="hero-img">
-    <div class="hero-food-card">🍝<span>Pasta</span></div>
-    <div class="hero-food-card">🥘<span>Stoofpot</span></div>
-    <div class="hero-food-card">🥗<span>Salade</span></div>
-    <div class="hero-food-card">🍲<span>Soep</span></div>
-    <div class="hero-food-card">🍗<span>Kip</span></div>
-    <div class="hero-food-card">🥩<span>Vlees</span></div>
+  <h1>Vul in wat je wilt<br>uitgeven — wij <em>koken</em> de rest</h1>
+  <p>Recept + boodschappenlijst + prijsindicatie. Afgestemd op jouw budget, dieet en wat je al in huis hebt.</p>
+ 
+  <div class="stats">
+    <div class="stat"><span class="stat-num">1.200+</span><span class="stat-label">recepten gemaakt</span></div>
+    <div class="stat"><span class="stat-num">€3,80</span><span class="stat-label">gemiddeld p.p.</span></div>
+    <div class="stat"><span class="stat-num">4,8★</span><span class="stat-label">gebruikersscore</span></div>
+  </div>
+ 
+  <div class="value-props">
+    <div class="vp"><div class="vp-dot"></div>Compleet recept in gewone taal</div>
+    <div class="vp"><div class="vp-dot"></div>Boodschappenlijst met grammen & prijzen</div>
+    <div class="vp"><div class="vp-dot"></div>Voedingswaarden per portie</div>
   </div>
 </section>
-
-<hr class="divider">
-
-<!-- HOW IT WORKS -->
-<section class="section">
-  <p class="section-label">Zo werkt het</p>
-  <h2>In 3 stappen klaar</h2>
-  <p class="sub">Geen ingewikkeld gedoe. Gewoon invullen en eten.</p>
-
-  <div class="steps-grid">
-    <div class="step-card">
-      <div class="step-num">1</div>
-      <h3>Vul je wensen in</h3>
-      <p>Budget, hoeveel personen, dieet en wat je nog in huis hebt.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">2</div>
-      <h3>AI bedenkt een recept</h3>
-      <p>Simpel beschreven, geen moeilijke kooktermen. Gewoon begrijpelijk.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">3</div>
-      <h3>Boodschappenlijst klaar</h3>
-      <p>Met realistische grammen en supermarktprijzen. Zo de winkel in.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- CALCULATOR -->
+ 
 <section id="calculator">
-  <p class="section-label" style="text-align:center;">De calculator</p>
-  <h2 style="text-align:center;font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.4rem);letter-spacing:-0.5px;margin-bottom:0.5rem;">Wat ga jij koken?</h2>
-
   <div class="calc-card">
+ 
+    <div class="live-feedback" id="live-feedback">Stel je budget in om te beginnen</div>
+ 
     <div class="form-row">
       <div class="form-group">
-        <label>Max budget</label>
-        <div class="select-wrapper">
-          <select id="budget">
+        <span class="section-label">Max budget</span>
+        <div class="select-wrap">
+          <select id="budget" onchange="updateFeedback()">
             <option value="5">Tot €5</option>
             <option value="8">Tot €8</option>
             <option value="10" selected>Tot €10</option>
             <option value="15">Tot €15</option>
             <option value="20">Tot €20</option>
             <option value="25">Tot €25</option>
+            <option value="30">Tot €30</option>
+            <option value="40">Tot €40</option>
+            <option value="50">Tot €50</option>
           </select>
         </div>
       </div>
       <div class="form-group">
-        <label>Personen</label>
-        <div class="select-wrapper">
-          <select id="persons">
+        <span class="section-label">Personen</span>
+        <div class="select-wrap">
+          <select id="persons" onchange="updateFeedback()">
             <option value="1">1 persoon</option>
             <option value="2" selected>2 personen</option>
             <option value="3">3 personen</option>
             <option value="4">4 personen</option>
+            <option value="5">5 personen</option>
+            <option value="6">6 personen</option>
           </select>
         </div>
       </div>
     </div>
-
+ 
+    <span class="section-label">Maaltijd</span>
+    <div class="meal-cards" id="meal-cards">
+      <div class="meal-card active" data-value="diner" onclick="selectMeal(this)"><span class="mc-icon">🍽️</span><span class="mc-label">Diner</span></div>
+      <div class="meal-card" data-value="lunch" onclick="selectMeal(this)"><span class="mc-icon">🥪</span><span class="mc-label">Lunch</span></div>
+      <div class="meal-card" data-value="ontbijt" onclick="selectMeal(this)"><span class="mc-icon">🥐</span><span class="mc-label">Ontbijt</span></div>
+    </div>
+ 
     <div class="form-row">
       <div class="form-group">
-        <label>Maaltijd</label>
-        <div class="select-wrapper">
-          <select id="meal">
-            <option value="diner">Diner</option>
-            <option value="lunch">Lunch</option>
-            <option value="ontbijt">Ontbijt</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Kooktijd</label>
-        <div class="select-wrapper">
+        <span class="section-label">Kooktijd</span>
+        <div class="select-wrap">
           <select id="time">
             <option value="15">Max 15 min</option>
             <option value="30" selected>Max 30 min</option>
@@ -690,137 +287,218 @@ footer {
         </div>
       </div>
     </div>
-
-    <span class="tags-label">Dieetwensen</span>
-    <div class="tags" id="diet-tags">
-      <span class="tag" data-value="vegetarisch">Vegetarisch</span>
-      <span class="tag" data-value="vegan">Vegan</span>
-      <span class="tag" data-value="halal">Halal</span>
-      <span class="tag" data-value="glutenvrij">Glutenvrij</span>
-      <span class="tag" data-value="lactosevrij">Lactosevrij</span>
-      <span class="tag" data-value="keto">Keto</span>
-      <span class="tag" data-value="high protein">High Protein</span>
+ 
+    <span class="section-label">Dieetvoorkeur</span>
+    <div class="diet-pills" id="diet-pills">
+      <span class="pill" data-value="vegetarisch">Vegetarisch</span>
+      <span class="pill" data-value="vegan">Vegan</span>
+      <span class="pill" data-value="halal">Halal</span>
+      <span class="pill" data-value="glutenvrij">Glutenvrij</span>
+      <span class="pill" data-value="lactosevrij">Lactosevrij</span>
+      <span class="pill" data-value="keto">Keto</span>
+      <span class="pill" data-value="high protein">High Protein</span>
     </div>
-
-    <div class="form-group">
-      <label>Wat heb je nog in huis? (optioneel)</label>
-      <input type="text" id="ingredients" placeholder="bijv. kip, tomaten, pasta, ui...">
+ 
+    <span class="section-label">🥦 Wat heb je nog in huis?</span>
+    <div class="ing-field-wrap" id="ing-wrap" onclick="document.getElementById('ing-input').focus()">
+      <input type="text" id="ing-input" class="ing-input" placeholder="Typ ingrediënt + Enter…" onkeydown="handleIngKey(event)">
     </div>
-
-    <button class="btn-generate" id="btn-gen" onclick="generate()">
-      Maak mijn recept ✨
-    </button>
+    <div class="ing-suggestions">
+      <span style="font-size:0.75rem;color:var(--muted);margin-right:2px;">Vaak thuis:</span>
+      <span class="ing-sug" onclick="addIngredient('Pasta')">Pasta</span>
+      <span class="ing-sug" onclick="addIngredient('Rijst')">Rijst</span>
+      <span class="ing-sug" onclick="addIngredient('Ui')">Ui</span>
+      <span class="ing-sug" onclick="addIngredient('Tomaat')">Tomaat</span>
+      <span class="ing-sug" onclick="addIngredient('Kaas')">Kaas</span>
+      <span class="ing-sug" onclick="addIngredient('Kip')">Kip</span>
+      <span class="ing-sug" onclick="addIngredient('Ei')">Ei</span>
+      <span class="ing-sug" onclick="addIngredient('Knoflook')">Knoflook</span>
+    </div>
+ 
+    <button class="btn-generate" id="btn-gen" onclick="generate()">Maak mijn recept ✨</button>
   </div>
 </section>
-
-<!-- RESULT -->
+ 
 <div class="result-wrap" id="result-wrap">
-  <div class="result-box">
-    <div id="result-inner"></div>
-  </div>
+  <div id="result-box"></div>
   <button class="btn-again" onclick="generate()">Ander recept genereren →</button>
 </div>
-
+ 
+<section class="examples">
+  <h3>Wat kun je verwachten?</h3>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="ex-budget">Voor €8 · 2 pers.</div><div class="ex-dish">Pasta pesto met kip</div><div class="ex-detail">25 min · Makkelijk · €4,00 p.p.</div></div>
+    <div class="ex-card"><div class="ex-budget">Voor €12 · 4 pers.</div><div class="ex-dish">Groentecurry met rijst</div><div class="ex-detail">30 min · Makkelijk · €3,00 p.p.</div></div>
+    <div class="ex-card"><div class="ex-budget">Voor €6 · 2 pers.</div><div class="ex-dish">Pittige tomatensoep</div><div class="ex-detail">20 min · Makkelijk · €3,00 p.p.</div></div>
+    <div class="ex-card"><div class="ex-budget">Voor €15 · 2 pers.</div><div class="ex-dish">Zalm met groenten</div><div class="ex-detail">25 min · Gemiddeld · €7,50 p.p.</div></div>
+  </div>
+</section>
+ 
 <footer>
-  <strong>KoopEnKook</strong> · Slimmer koken binnen je budget<br>
-  Recepten zijn suggesties op basis van AI · Prijzen zijn schattingen · © 2025
+  <strong>KoopEnKook</strong> · Slim kopen, lekker koken<br>
+  Recepten en prijzen zijn suggesties op basis van AI · © 2025
 </footer>
-
+ 
 <script>
-document.querySelectorAll('.tag').forEach(t => {
-  t.addEventListener('click', () => t.classList.toggle('active'));
+function toggleDark(el) {
+  document.body.classList.toggle('dark', el.checked);
+  localStorage.setItem('dark', el.checked ? '1' : '0');
+}
+if (localStorage.getItem('dark') === '1') {
+  document.body.classList.add('dark');
+  document.getElementById('dark-toggle').checked = true;
+}
+ 
+let ingTags = [];
+let selectedMeal = 'diner';
+ 
+function updateFeedback() {
+  const budget = parseFloat(document.getElementById('budget').value);
+  const persons = parseInt(document.getElementById('persons').value);
+  const pp = (budget / persons).toFixed(2);
+  document.getElementById('live-feedback').textContent = `Budget €${budget} voor ${persons} persoon${persons > 1 ? 'en' : ''} = ±€${pp} per persoon`;
+}
+ 
+function selectMeal(el) {
+  document.querySelectorAll('.meal-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  selectedMeal = el.dataset.value;
+}
+ 
+document.querySelectorAll('.pill').forEach(p => {
+  p.addEventListener('click', () => p.classList.toggle('active'));
 });
-
+ 
+function handleIngKey(e) {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const val = e.target.value.trim().replace(',', '');
+    if (val) addIngredient(val);
+    e.target.value = '';
+  }
+}
+ 
+function addIngredient(val) {
+  if (!ingTags.includes(val)) {
+    ingTags.push(val);
+    renderTags();
+  }
+}
+ 
+function removeIngredient(val) {
+  ingTags = ingTags.filter(t => t !== val);
+  renderTags();
+}
+ 
+function renderTags() {
+  const wrap = document.getElementById('ing-wrap');
+  const input = document.getElementById('ing-input');
+  wrap.innerHTML = '';
+  ingTags.forEach(t => {
+    const tag = document.createElement('span');
+    tag.className = 'ing-tag';
+    tag.innerHTML = `${t} <span class="ing-tag-remove" onclick="removeIngredient('${t}')">×</span>`;
+    wrap.appendChild(tag);
+  });
+  wrap.appendChild(input);
+}
+ 
+updateFeedback();
+ 
 async function generate() {
   const btn = document.getElementById('btn-gen');
   btn.disabled = true;
-  btn.textContent = 'Bezig...';
-
+  btn.textContent = 'Bezig…';
+ 
   const wrap = document.getElementById('result-wrap');
-  const inner = document.getElementById('result-inner');
+  const box = document.getElementById('result-box');
   wrap.classList.add('visible');
-  inner.innerHTML = '<div class="loading"><div class="spinner"></div><p>Recept wordt bedacht...</p></div>';
+  box.innerHTML = `<div class="calc-card loading-state"><div class="spinner"></div><p>We zoeken een betaalbaar recept voor jou…</p></div>`;
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  const diets = [...document.querySelectorAll('.tag.active')].map(t => t.dataset.value);
-
+ 
+  const diets = [...document.querySelectorAll('.pill.active')].map(p => p.dataset.value);
+  const budget = document.getElementById('budget').value;
+  const persons = document.getElementById('persons').value;
+ 
   try {
     const res = await fetch('/api/recipe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        budget: document.getElementById('budget').value,
-        persons: document.getElementById('persons').value,
-        meal: document.getElementById('meal').value,
+        budget, persons,
+        meal: selectedMeal,
         time: document.getElementById('time').value,
         diets,
-        ingredients: document.getElementById('ingredients').value
+        ingredients: ingTags.join(', ')
       })
     });
-
     const r = await res.json();
     if (r.error) throw new Error(r.error);
-    showRecipe(r);
+    showRecipe(r, ingTags);
   } catch(e) {
-    inner.innerHTML = '<div class="loading"><p style="color:#c0392b;">Er ging iets mis. Probeer opnieuw.</p></div>';
+    box.innerHTML = `<div class="calc-card" style="padding:2rem;text-align:center;color:#c0392b;">Er ging iets mis. Probeer opnieuw.</div>`;
   }
-
+ 
   btn.disabled = false;
   btn.textContent = 'Maak mijn recept ✨';
 }
-
-function showRecipe(r) {
-  const inner = document.getElementById('result-inner');
-
-  const ingHTML = (r.ingredienten || []).map(i => `
-    <div class="ing-item">
-      <div class="ing-name">${i.naam || i}</div>
-      ${i.hoeveelheid ? `<div class="ing-detail">${i.hoeveelheid}${i.supermarkt_tip ? ' · ' + i.supermarkt_tip : ''}</div>` : ''}
-      ${i.prijs ? `<div class="ing-price">${i.prijs}</div>` : ''}
-    </div>
-  `).join('');
-
-  const stepsHTML = (r.stappen || []).map((s, i) => `
-    <li><span class="sn">${i+1}</span><span>${s}</span></li>
-  `).join('');
-
-  const shopHTML = (r.boodschappenlijst || []).map(item => {
-    const parts = item.split(' — ');
-    return `<li><span>${parts[0]}</span>${parts[1] ? `<span class="shop-price">${parts[1]}</span>` : ''}</li>`;
+ 
+function showRecipe(r, userIngs) {
+  const box = document.getElementById('result-box');
+  const pp = r.totaal_prijs ? `€${(parseFloat(r.totaal_prijs.replace('€','').replace(',','.')) / parseInt(document.getElementById('persons').value)).toFixed(2)} p.p.` : '';
+ 
+  const ingHTML = (r.ingredienten || []).map(i => {
+    const naam = i.naam || i;
+    const heeftAl = userIngs.some(u => naam.toLowerCase().includes(u.toLowerCase()) || u.toLowerCase().includes(naam.toLowerCase()));
+    return `<div class="ing-item ${heeftAl ? 'already-have' : ''}">
+      <div class="ing-left">
+        <span class="ing-name">${naam}${heeftAl ? ' <span class="already-badge">al in huis</span>' : ''}</span>
+        <span class="ing-amount">${i.hoeveelheid || ''}${i.supermarkt_tip ? ' · ' + i.supermarkt_tip : ''}</span>
+      </div>
+      <span class="ing-price">${i.prijs || ''}</span>
+    </div>`;
   }).join('');
-
-  inner.innerHTML = `
+ 
+  const stepsHTML = (r.stappen || []).map((s, i) => `<li><span class="sn">${i+1}</span><span>${s}</span></li>`).join('');
+ 
+  const nut = r.voedingswaarden || {};
+  const nutHTML = `
+    <div class="nutrition-box">
+      <h4>Voedingswaarden per portie</h4>
+      <div class="nut-row"><span class="nut-label">Calorieën</span><span class="nut-val">${nut.calorieen || '—'} kcal</span></div>
+      <div class="nut-row"><span class="nut-label">Eiwitten</span><span class="nut-val">${nut.eiwitten || '—'}g</span></div>
+      <div class="nut-row"><span class="nut-label">Koolhydraten</span><span class="nut-val">${nut.koolhydraten || '—'}g</span></div>
+      <div class="nut-row"><span class="nut-label">Vetten</span><span class="nut-val">${nut.vetten || '—'}g</span></div>
+      <div class="nut-row"><span class="nut-label">Vezels</span><span class="nut-val">${nut.vezels || '—'}g</span></div>
+    </div>`;
+ 
+  box.innerHTML = `
     <div class="result-top">
       <h2>${r.naam}</h2>
       <p>${r.omschrijving || ''}</p>
-      <div class="result-pills">
-        <span class="pill">${r.keuken || ''}</span>
-        <span class="pill">⏱ ${r.bereidingstijd}</span>
-        <span class="pill">${r.moeilijkheid}</span>
-        ${r.totaal_prijs ? `<span class="pill">💰 ${r.totaal_prijs}</span>` : ''}
+      <div class="result-quick-stats">
+        <span class="rqs">⏱ ${r.bereidingstijd}</span>
+        <span class="rqs">${r.moeilijkheid}</span>
+        ${r.totaal_prijs ? `<span class="rqs">💰 ${r.totaal_prijs} totaal</span>` : ''}
+        ${pp ? `<span class="rqs">${pp}</span>` : ''}
+        <span class="rqs">${r.keuken || ''}</span>
       </div>
     </div>
     <div class="result-body">
-      <p class="res-section-title">Ingrediënten</p>
-      <div class="ingredients-grid">${ingHTML}</div>
-
-      <p class="res-section-title">Bereiding</p>
-      <ol class="steps-ol">${stepsHTML}</ol>
-
-      ${shopHTML ? `
-        <p class="res-section-title">Boodschappenlijst</p>
-        <ul class="shopping-list">${shopHTML}</ul>
-        ${r.totaal_prijs ? `<div class="total-row"><span>Totaal geschat</span><span>${r.totaal_prijs}</span></div>` : ''}
-      ` : ''}
-
-      ${r.tip ? `
-        <div class="tip-box">
-          <strong>Kooktip</strong>
-          <p>${r.tip}</p>
+      <div class="result-cols">
+        <div>
+          <span class="res-sec-title">Ingrediënten</span>
+          <div class="ing-grid">${ingHTML}</div>
+          ${r.totaal_prijs ? `<div class="total-row"><span>Totaal geschat</span><span>${r.totaal_prijs}</span></div>` : ''}
+ 
+          <span class="res-sec-title">Bereiding</span>
+          <ol class="steps-ol">${stepsHTML}</ol>
+ 
+          ${r.tip ? `<div class="tip-box"><strong>Kooktip</strong><p>${r.tip}</p></div>` : ''}
         </div>
-      ` : ''}
-    </div>
-  `;
+        <div>${nutHTML}</div>
+      </div>
+    </div>`;
 }
 </script>
 </body>
