@@ -1,7 +1,1 @@
-{
-  "functions": {
-    "api/recipe.js": {
-      "runtime": "nodejs20.x"
-    }
-  }
-}
+{}
