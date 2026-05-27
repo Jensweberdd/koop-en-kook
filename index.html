@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>KoopEnKook — Koop slim, kook lekker</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g1: #2d5a1b;
+  --g2: #3d7a24;
+  --g3: #52a030;
+  --g-light: #eef7e8;
+  --g-mid: #c8e8b0;
+  --a1: #7a4a0a;
+  --a-light: #fef3e2;
+  --a-mid: #f4c06a;
+  --text: #1c1c1c;
+  --muted: #6b6b6b;
+  --border: #e2ddd4;
+  --bg: #f9f6f0;
+  --white: #ffffff;
+  --r: 14px;
+  --r-lg: 20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(249,246,240,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  color: var(--g1);
+  letter-spacing: -0.3px;
+}
+
+.logo span { color: var(--g3); font-style: italic; }
+
+.nav-cta {
+  background: var(--g1);
+  color: white;
+  border: none;
+  border-radius: 99px;
+  padding: 8px 18px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* HERO */
+.hero {
+  padding: 5rem 1.5rem 3rem;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--g-light);
+  color: var(--g1);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 99px;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.hero h1 em { color: var(--g2); font-style: italic; }
+
+.hero p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.hero-btn {
+  display: inline-block;
+  background: var(--g1);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+  border: none;
+  cursor: pointer;
+}
+
+.hero-btn:hover { background: var(--g2); }
+.hero-btn:active { transform: scale(0.98); }
+
+.hero-img {
+  margin: 3rem auto 0;
+  max-width: 460px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.hero-food-card {
+  background: var(--g-light);
+  border-radius: 10px;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.hero-food-card span {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--g1);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* HOW IT WORKS */
+.section {
+  padding: 4rem 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--g2);
+  margin-bottom: 0.5rem;
+}
+
+.section h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.section p.sub {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  margin-bottom: 2.5rem;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.step-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
+}
+
+.step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--g-light);
+  color: var(--g1);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.step-card h3 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.step-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* DIVIDER */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* CALCULATOR */
+#calculator {
+  padding: 4rem 1.5rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+#calculator .section-label { text-align: center; }
+#calculator h2 { text-align: center; }
+
+.calc-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+
+.form-group label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus { border-color: var(--g2); }
+
+.select-wrapper { position: relative; }
+
+.select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+  font-size: 0.8rem;
+}
+
+.tags-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 8px;
+  margin-top: 1rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  padding: 7px 14px;
+  border-radius: 99px;
+  border: 1.5px solid var(--border);
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: var(--bg);
+  color: var(--muted);
+  transition: all 0.15s;
+  user-select: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.tag:hover { border-color: var(--g2); color: var(--g1); }
+
+.tag.active {
+  background: var(--g-light);
+  border-color: var(--g2);
+  color: var(--g1);
+  font-weight: 600;
+}
+
+.btn-generate {
+  width: 100%;
+  padding: 1rem;
+  background: var(--g1);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.25rem;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-generate:hover { background: var(--g2); }
+.btn-generate:active { transform: scale(0.99); }
+.btn-generate:disabled { background: #bbb; cursor: not-allowed; }
+
+/* RESULT */
+.result-wrap {
+  display: none;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  padding: 0 1.5rem;
+}
+
+.result-wrap.visible { display: block; }
+
+.result-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.result-top {
+  background: var(--g1);
+  padding: 1.5rem 2rem;
+  color: white;
+}
+
+.result-top h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 0.4rem;
+}
+
+.result-top p { font-size: 0.9rem; opacity: 0.85; }
+
+.result-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 0.75rem;
+}
+
+.pill {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+.result-body { padding: 1.5rem 2rem; }
+
+.res-section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.res-section-title:first-child { margin-top: 0; }
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.ing-item {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.ing-name { font-size: 0.9rem; font-weight: 500; }
+.ing-detail { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.ing-price { font-size: 0.78rem; color: var(--g1); font-weight: 600; }
+
+.steps-ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.steps-ol li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.sn {
+  background: var(--g1);
+  color: white;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.shopping-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.shopping-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+
+.shop-price { font-weight: 600; color: var(--g1); }
+
+.tip-box {
+  background: var(--a-light);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.tip-box strong {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--a1);
+}
+
+.tip-box p { margin-top: 4px; font-size: 0.9rem; color: #5a3c0a; line-height: 1.5; }
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--g-light);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--g1);
+  font-size: 0.95rem;
+}
+
+.btn-again {
+  width: 100%;
+  padding: 0.85rem;
+  background: transparent;
+  color: var(--g1);
+  border: 1.5px solid var(--g2);
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.25rem;
+  transition: all 0.15s;
+}
+
+.btn-again:hover { background: var(--g-light); }
+
+.loading {
+  text-align: center;
+  padding: 2.5rem;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--g-mid);
+  border-top-color: var(--g2);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  border-top: 1px solid var(--border);
+  line-height: 1.7;
+}
+
+/* MOBILE */
+@media (max-width: 580px) {
+  .form-row { grid-template-columns: 1fr; }
+  .ingredients-grid { grid-template-columns: 1fr; }
+  .hero { padding: 3rem 1.25rem 2rem; }
+  .result-body { padding: 1.25rem; }
+  .result-top { padding: 1.25rem; }
+  .calc-card { padding: 1.25rem; }
+  .hero-img { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Koop<span>EnKook</span></div>
+  <a href="#calculator" class="nav-cta">Probeer gratis →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✨ Gratis · Geen account nodig</div>
+  <h1>Wat eet jij <em>vanavond?</em></h1>
+  <p>Vul je budget en wensen in — KoopEnKook bedenkt een heerlijk recept met een eerlijke boodschappenlijst en realistische prijzen.</p>
+  <a href="#calculator" class="hero-btn">Maak mijn recept</a>
+
+  <div class="hero-img">
+    <div class="hero-food-card">🍝<span>Pasta</span></div>
+    <div class="hero-food-card">🥘<span>Stoofpot</span></div>
+    <div class="hero-food-card">🥗<span>Salade</span></div>
+    <div class="hero-food-card">🍲<span>Soep</span></div>
+    <div class="hero-food-card">🍗<span>Kip</span></div>
+    <div class="hero-food-card">🥩<span>Vlees</span></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <p class="section-label">Zo werkt het</p>
+  <h2>In 3 stappen klaar</h2>
+  <p class="sub">Geen ingewikkeld gedoe. Gewoon invullen en eten.</p>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Vul je wensen in</h3>
+      <p>Budget, hoeveel personen, dieet en wat je nog in huis hebt.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>AI bedenkt een recept</h3>
+      <p>Simpel beschreven, geen moeilijke kooktermen. Gewoon begrijpelijk.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Boodschappenlijst klaar</h3>
+      <p>Met realistische grammen en supermarktprijzen. Zo de winkel in.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <p class="section-label" style="text-align:center;">De calculator</p>
+  <h2 style="text-align:center;font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.4rem);letter-spacing:-0.5px;margin-bottom:0.5rem;">Wat ga jij koken?</h2>
+
+  <div class="calc-card">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Max budget</label>
+        <div class="select-wrapper">
+          <select id="budget">
+            <option value="5">Tot €5</option>
+            <option value="8">Tot €8</option>
+            <option value="10" selected>Tot €10</option>
+            <option value="15">Tot €15</option>
+            <option value="20">Tot €20</option>
+            <option value="25">Tot €25</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Personen</label>
+        <div class="select-wrapper">
+          <select id="persons">
+            <option value="1">1 persoon</option>
+            <option value="2" selected>2 personen</option>
+            <option value="3">3 personen</option>
+            <option value="4">4 personen</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Maaltijd</label>
+        <div class="select-wrapper">
+          <select id="meal">
+            <option value="diner">Diner</option>
+            <option value="lunch">Lunch</option>
+            <option value="ontbijt">Ontbijt</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Kooktijd</label>
+        <div class="select-wrapper">
+          <select id="time">
+            <option value="15">Max 15 min</option>
+            <option value="30" selected>Max 30 min</option>
+            <option value="60">Max 60 min</option>
+            <option value="90">Geen limiet</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <span class="tags-label">Dieetwensen</span>
+    <div class="tags" id="diet-tags">
+      <span class="tag" data-value="vegetarisch">Vegetarisch</span>
+      <span class="tag" data-value="vegan">Vegan</span>
+      <span class="tag" data-value="halal">Halal</span>
+      <span class="tag" data-value="glutenvrij">Glutenvrij</span>
+      <span class="tag" data-value="lactosevrij">Lactosevrij</span>
+      <span class="tag" data-value="keto">Keto</span>
+      <span class="tag" data-value="high protein">High Protein</span>
+    </div>
+
+    <div class="form-group">
+      <label>Wat heb je nog in huis? (optioneel)</label>
+      <input type="text" id="ingredients" placeholder="bijv. kip, tomaten, pasta, ui...">
+    </div>
+
+    <button class="btn-generate" id="btn-gen" onclick="generate()">
+      Maak mijn recept ✨
+    </button>
+  </div>
+</section>
+
+<!-- RESULT -->
+<div class="result-wrap" id="result-wrap">
+  <div class="result-box">
+    <div id="result-inner"></div>
+  </div>
+  <button class="btn-again" onclick="generate()">Ander recept genereren →</button>
+</div>
+
+<footer>
+  <strong>KoopEnKook</strong> · Slimmer koken binnen je budget<br>
+  Recepten zijn suggesties op basis van AI · Prijzen zijn schattingen · © 2025
+</footer>
+
+<script>
+document.querySelectorAll('.tag').forEach(t => {
+  t.addEventListener('click', () => t.classList.toggle('active'));
+});
+
+async function generate() {
+  const btn = document.getElementById('btn-gen');
+  btn.disabled = true;
+  btn.textContent = 'Bezig...';
+
+  const wrap = document.getElementById('result-wrap');
+  const inner = document.getElementById('result-inner');
+  wrap.classList.add('visible');
+  inner.innerHTML = '<div class="loading"><div class="spinner"></div><p>Recept wordt bedacht...</p></div>';
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const diets = [...document.querySelectorAll('.tag.active')].map(t => t.dataset.value);
+
+  try {
+    const res = await fetch('/api/recipe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        budget: document.getElementById('budget').value,
+        persons: document.getElementById('persons').value,
+        meal: document.getElementById('meal').value,
+        time: document.getElementById('time').value,
+        diets,
+        ingredients: document.getElementById('ingredients').value
+      })
+    });
+
+    const r = await res.json();
+    if (r.error) throw new Error(r.error);
+    showRecipe(r);
+  } catch(e) {
+    inner.innerHTML = '<div class="loading"><p style="color:#c0392b;">Er ging iets mis. Probeer opnieuw.</p></div>';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Maak mijn recept ✨';
+}
+
+function showRecipe(r) {
+  const inner = document.getElementById('result-inner');
+
+  const ingHTML = (r.ingredienten || []).map(i => `
+    <div class="ing-item">
+      <div class="ing-name">${i.naam || i}</div>
+      ${i.hoeveelheid ? `<div class="ing-detail">${i.hoeveelheid}${i.supermarkt_tip ? ' · ' + i.supermarkt_tip : ''}</div>` : ''}
+      ${i.prijs ? `<div class="ing-price">${i.prijs}</div>` : ''}
+    </div>
+  `).join('');
+
+  const stepsHTML = (r.stappen || []).map((s, i) => `
+    <li><span class="sn">${i+1}</span><span>${s}</span></li>
+  `).join('');
+
+  const shopHTML = (r.boodschappenlijst || []).map(item => {
+    const parts = item.split(' — ');
+    return `<li><span>${parts[0]}</span>${parts[1] ? `<span class="shop-price">${parts[1]}</span>` : ''}</li>`;
+  }).join('');
+
+  inner.innerHTML = `
+    <div class="result-top">
+      <h2>${r.naam}</h2>
+      <p>${r.omschrijving || ''}</p>
+      <div class="result-pills">
+        <span class="pill">${r.keuken || ''}</span>
+        <span class="pill">⏱ ${r.bereidingstijd}</span>
+        <span class="pill">${r.moeilijkheid}</span>
+        ${r.totaal_prijs ? `<span class="pill">💰 ${r.totaal_prijs}</span>` : ''}
+      </div>
+    </div>
+    <div class="result-body">
+      <p class="res-section-title">Ingrediënten</p>
+      <div class="ingredients-grid">${ingHTML}</div>
+
+      <p class="res-section-title">Bereiding</p>
+      <ol class="steps-ol">${stepsHTML}</ol>
+
+      ${shopHTML ? `
+        <p class="res-section-title">Boodschappenlijst</p>
+        <ul class="shopping-list">${shopHTML}</ul>
+        ${r.totaal_prijs ? `<div class="total-row"><span>Totaal geschat</span><span>${r.totaal_prijs}</span></div>` : ''}
+      ` : ''}
+
+      ${r.tip ? `
+        <div class="tip-box">
+          <strong>Kooktip</strong>
+          <p>${r.tip}</p>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
